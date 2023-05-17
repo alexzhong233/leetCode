@@ -42,3 +42,6 @@ build/
 /.idea/fastRequest/fastRequestCollection.xml
 /.idea/fastRequest/fastRequestCurrentProjectLocalConfig.xml
 /.idea/leetcode/statistics.xml
+/.idea/misc.xml
+/.idea/vcs.xml
+/.idea/workspace.xml
