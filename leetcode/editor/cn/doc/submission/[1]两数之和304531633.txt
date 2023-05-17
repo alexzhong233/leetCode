@@ -1,9 +1,0 @@
-class Solution {
-    public int[] twoSum(int[] nums, int target) {
-
-    }
-}
-//total_correct:0
-//compile_error:Line 4: error: missing return statement
-    }
-    ^
