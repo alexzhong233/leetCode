@@ -46,10 +46,51 @@ package leetcode.editor.cn;//给定一个整数数组 nums 和一个整数目标
 // Related Topics 数组 哈希表 👍 17015 👎 0
 
 
+import java.util.HashMap;
+import java.util.Map;
+
 //leetcode submit region begin(Prohibit modification and deletion)
+//class Solution {
+//    public int[] twoSum(int[] nums, int target) {
+//Map map =new HashMap<Integer, Integer>();
+//        for (int i = 0; i < nums.length; i++) {
+//            if (map.containsKey(target-nums[i])){
+//                return new int[]{
+//                        (int) map.get(target-nums[i]),i
+//                };
+//
+//            }  map.put(nums[i], i);
+//        }return null;}
+//}
+//class Solution {
+//    public int[] twoSum(int[] nums, int target) {
+//
+//        for (int i = 0; i < nums.length; i++) {
+//            for (int i1 = i+1; i1 < nums.length; i1++) {
+//                if (nums[i]+nums[i1]==target){
+//                    return new int[] {
+//                        i,i1
+//                    };
+//                }
+//            }
+//        }
+//
+//return null;
+//}}
 class Solution {
     public int[] twoSum(int[] nums, int target) {
-Map<>
+        int left = 0;
+        int right = 0;
+        for (int i = 0; i < nums.length; i++) {
+            left = nums[i];
+            for (int j = nums.length - 1; j > i; j--) {
+                right = nums[j];
+                if ((left + right) == target) {
+                    return new int[]{i, j};
+                }
+            }
+        }
+        return null;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)

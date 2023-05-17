@@ -1,0 +1,148 @@
+## 暴力解法
+
+最容易想到的解法就是暴力解法，```2``` 层循环，外层确定起始位置，内层逐个字符进行对比，直到遇到重复或者结束，记录当前起始位置开始时的最长子串长度，并和之前所得答案 ```ans``` 求最大值。
+
+这不是一个好的算法，还有很大的优化空间。
+
+* java
+
+```java
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        int n = s.length();
+        if(n <= 1){
+            return n;
+        }
+        
+        int ans = 0;
+        Set<Character> set = new HashSet<>();
+        
+        for(int i = 0; i < n; i++){
+            set.add(s.charAt(i));
+            for(int j = i + 1; j <= n; j++){
+                // j == n 表示直到最后一个字符都没有重复
+                if(j == n || set.contains(s.charAt(j))){
+                    ans = Math.max(ans, j - i);
+                    set.clear();
+                    break;
+                }else{
+                    set.add(s.charAt(j));
+                }
+            }
+
+        }
+        
+        return ans;
+    }
+}
+```
+
+![image.png](https://pic.leetcode.cn/1677155753-wGfvBD-image.png)
+
+## 滑动窗口
+
+我们顺着暴力解法的思路来捋一捋，看看都有哪些地方可以优化呢？
+
+先以字符串 ```“abcabcbb”``` 为例：
+1. 当第一个字符 ```“a”``` 作为起始位置的时候，其最长子串为 ```“abc”```，遍历到第四个字符 ```“a”``` 的时候发现重复。
+2. 当第二个字符 ```“b”``` 作为起始位置的时候，我们其实可以跳过第三个字符 ```“c”```, 直接从第四个字符 ```“a”``` 开始遍历比较，因为第三个字符 ```“c”``` 已经在上次循环时候已经和前面两个位置比较过了，且没有重复。
+
+![image.png](https://pic.leetcode.cn/1677155866-RmPgbA-image.png)
+
+优化后需要注意的点是每计算完一轮最长子串后不能清空用于判重的集合```set```，而是从集合中删除第一个字符。
+
+这个优化算法其实就是“**滑动窗口**”的思想了，```i```为窗口左边界，```j```为窗口右边界。
+
+* java
+
+```java
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        int n = s.length();
+        if(n <= 1){
+            return n;
+        }
+        
+        int end = 0, ans = 0;
+        Set<Character> set = new HashSet<>();
+        set.add(s.charAt(0));
+  
+        for(int i = 0; i < n; i++){
+        
+            for(int j = end + 1; j <= n; j++){
+                if( j == n || set.contains(s.charAt(j))){
+                    ans = Math.max(ans, j - i);
+                    set.remove(s.charAt(i));
+                    end = j - 1;
+                    break;
+                }else{
+                    set.add(s.charAt(j));
+                }
+            }
+         
+        }
+        
+        return ans;
+    }
+}
+```
+
+![image.png](https://pic.leetcode.cn/1677155926-BRAYku-image.png)
+
+## 滑动窗口优化
+
+仔细看上面的算法，其实还有优化的空间：
+1. 当 ```j == n``` 时，其实可以直接结束的，无需再循环后面的 ```i```，因为后面 ```i``` 的最长子串肯定已经包含在当前这个结果中了。
+2. ```i``` 按照顺序遍历，有时其实不是必须的，如 ```“abcdbcbb”```为例：
+   - 以第一个字符 ```“a”``` 开始的最长子串为 ```“abcd”```，遇到第五个字符 ```“b”``` 时因和第二个字符重复而结束。
+   - 如果下一次从第二个字符 ```“b”``` 开始的话，其最长子串是 ```“bcd”```，完全包含在上一个结果```“abcd”```中了，所以这一步是可以跳过的。
+3. 当剩余字符的总个数已经 **小于** 当前答案了，那么可以直接退出了。
+
+![优无重复字符的最长子串.gif](https://pic.leetcode.cn/1677156344-cEvZeO-%E4%BC%98%E5%8C%96%E4%B8%80%E7%9A%84%E5%89%AF%E6%9C%AC.gif)
+
+* java
+
+```java
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        int n = s.length();
+        if(n <= 1){
+            return n;
+        }
+        
+        int start = 0, end = 0, ans = 0;
+        Map<Character, Integer> indexMap = new HashMap<>();
+        
+        while(end < n && n - start > ans){
+            char ch = s.charAt(end);
+
+            // 位置小于start的元素相当于都删除了
+            if(indexMap.containsKey(ch) && indexMap.get(ch) >= start){
+                //计算结果
+                ans = Math.max(ans, end - start);
+
+                // 跳过重复字符, 
+                start = indexMap.get(ch) + 1;
+            }
+
+            // 维护新的非重复字符的索引
+            // 如果是重复的字符，这里相当于删掉了旧的，新增了新的。
+            indexMap.put(ch, end++);
+            
+        }
+
+        if(end == n){
+            ans = Math.max(ans, n - start); 
+        }
+        
+        return ans;
+    }
+}
+```
+
+![1677214591-ANEGMP-mmexport1ccd3ed7b0f2105bc05fef24b6c984ff_1677214567447.png](https://pic.leetcode.cn/1677214591-ANEGMP-mmexport1ccd3ed7b0f2105bc05fef24b6c984ff_1677214567447.png)
+
+时间复杂度为$O(N)$，N 为字符串长度。
+
+空间复杂度为$O(M)$，M 为字符串中字符类型个数，不管字符串有多长，他所包含的字符类型都是固定的。
+

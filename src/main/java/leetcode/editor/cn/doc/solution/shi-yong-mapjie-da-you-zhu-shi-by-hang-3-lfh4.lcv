@@ -1,0 +1,26 @@
+### 解题思路
+
+使用map存储key==元素的值value==元素的下标，使用map的containsKey方法判断target-nums[i]是否存在，如果存在如果存在代表当前元素加上此元素即可得到target
+
+### 代码
+
+* java
+
+```java
+class Solution {
+    public int[] twoSum(int[] nums, int target) {
+    Map<Integer,Integer> map=new HashMap<>();   
+        for(int i=0;i<nums.length;i++){
+            //判断当前map中是否存在与之匹配的元素
+            if(map.containsKey(target-nums[i])){
+                //如果存在直接返回map中的value下标与当前下标即可
+                return new int[]{map.get(target-nums[i]),i};
+            }
+            //往map中插入数据，key元素值，value元素下标
+            map.put(nums[i],i);
+        }
+        return new int[]{0,0};
+    }
+}
+```
+
