@@ -45,3 +45,7 @@ build/
 /.idea/misc.xml
 /.idea/vcs.xml
 /.idea/workspace.xml
+/src/main/java/leetcode/editor/cn/doc/solution/
+.idea/
+.fastRequest/
+

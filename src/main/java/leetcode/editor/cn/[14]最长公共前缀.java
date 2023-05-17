@@ -32,19 +32,35 @@
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public String longestCommonPrefix(String[] strs) {
-
-         ArrayList chars=new ArrayList<char[]>();
-        for (String str : strs) {
-          chars.add(  str.toCharArray());
+        Arrays.sort(strs,new Comparator<String>(){
+            @Override
+            public int compare(String o1, String o2) {
+                return o1.length() - o2.length();
+            }
+        });
+        for (int i = strs[0].length(); i > 0; i--) {
+            String substring = strs[0].substring(0, i);
+            boolean bo = false;
+            for (int i1 = 0; i1 < strs.length; i1++) {
+                if (strs[i1].startsWith(substring)) {
+                    bo = true;
+                } else {
+                    bo = false;
+                    break;
+                }
+            }
+            if (bo) {
+                return substring;
+            }
         }
-        ArrayList<Character> characters = new ArrayList<>();
-   chars.forEach(char->{
-
-        });}
+        return "";
+    }
 }
 //leetcode submit region end(Prohibit modification and deletion)
