@@ -1,0 +1,29 @@
+### 解题思路
+
+数组模拟栈
+
+### 代码
+
+* java
+
+```java
+class Solution {
+    public boolean isValid(String s) {
+        char[] stack = new char[s.length()];
+        int top = -1;//栈顶指针
+        for (char c : s.toCharArray()) {
+            if (c == '(') {
+                stack[++top] = ')';
+            } else if (c == '[') {
+                stack[++top] = ']';
+            } else if (c == '{') {
+                stack[++top] = '}';
+            } else if (top == -1 || stack[top--] != c) {//之前没有对应的左括号或者左右括号不匹配
+                return false;
+            }
+        }
+        return top == -1;//判断是否有剩余的左括号没有被匹配
+    }
+}
+```
+

@@ -48,8 +48,24 @@
 
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
-    public boolean isPalindrome(int x) {
+//    public boolean isPalindrome(int x) {
+//        String s = String.valueOf(x);
+//        StringBuffer str =new StringBuffer(s);
+//str.reverse();
+//        return str.toString().equals(s.toString()) ? true : false;
+//    }
+  public boolean isPalindrome(int x) {
 
+  char[] chars = String.valueOf(x).toCharArray();
+
+      int length = chars.length;
+      int i =0;
+while(i<length/2){
+    if (chars[i] != chars[length-i-1]){
+        return false;
     }
+    i++;
+}return true;
+  }
 }
 //leetcode submit region end(Prohibit modification and deletion)

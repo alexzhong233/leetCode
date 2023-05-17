@@ -1,0 +1,31 @@
+### 解题思路
+
+首先可以将数字x看做一个字符串，根据题意可知小于0的时候返回的一定是false；然后判断当x大于0的情况，将x与空字符串连接转换为字符串形式，此时将字符串反转，对反转前后的字符串进行equals值比较，相等则返回true，否则返回false。
+
+### 代码
+
+* java
+
+```java
+class Solution {
+    public boolean isPalindrome(int x) {
+        if(x<0){
+            return false;
+        }else{
+            String str = ""+x;
+            String str1 = "";
+            for(int i =str.length()-1;i>=0;i--){
+                str1+=str.charAt(i);
+            }
+            System.out.println("str="+str);
+            System.out.println("str1="+str1);
+            if(str.equals(str1)){
+                return true;
+            }else{
+                return false;
+            }
+        }
+    }
+}
+```
+
