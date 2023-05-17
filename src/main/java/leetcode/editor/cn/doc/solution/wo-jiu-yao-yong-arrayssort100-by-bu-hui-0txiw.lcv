@@ -1,0 +1,15 @@
+想了半天就六行代码到底考啥哈哈哈哈哈哈
+
+* 
+
+```
+public int findKthLargest(int[] nums, int k) {
+        Arrays.sort(nums);
+        int ans=0;
+        int i= nums.length;
+        i-=k;
+        ans=nums[i];
+        return ans;
+    }
+```
+
