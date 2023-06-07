@@ -44,30 +44,19 @@
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public int[] plusOne(int[] digits) {
+
         int length = digits.length;
-       if (digits[length-1]==9){
-           digits[length - 1]=0;
-           if (length ==1){
-               return new int[]{1, 0};
-           }
-           for (int i =length-2 ; i <length&&i>-1; i--) {
 
-              if (digits[i]==9){
-                  digits[i] =0;
-              }else{
-                  digits[i] = digits[i]+1;
-                  return digits;
-              }
-              if (digits[0]==9&&i==0){
-                  int[] ints = new int[length+1];
-                  ints[0]=1;
-                  return ints;
 
-              }
-           }
-       }
-digits[length-1]=digits[length - 1]+1;
-       return digits;
-    }
+        for (int i = length-1; i>=0; i--) {
+ digits[i]++;
+ if (digits[i]%10!=0){
+     return digits;
+ }else {digits[i]=0;}
+
+        }
+        digits=new int[length+1];
+        digits[0]=1;
+        return digits;}
 }
 //leetcode submit region end(Prohibit modification and deletion)
