@@ -60,7 +60,18 @@
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public int removeDuplicates(int[] nums) {
-
+if(nums.length==0){return 0;}
+int p =0;
+int q =1;
+      while(q<nums.length) {
+            if (nums[p]!=nums[q]&&p<q){
+//                int k =nums[p+1];
+                nums[p+1]=nums[q];
+//                nums[q]=k;
+                p++;
+            }q++;
+        }
+        return p+1;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
