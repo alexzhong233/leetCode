@@ -56,6 +56,7 @@
 class Solution {
     public boolean isSameTree(TreeNode p, TreeNode q) {
 
+
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
