@@ -1,0 +1,63 @@
+### 解题思路
+
+双双端队列。
+pushFront和pushBack可以不调整。这里调整反而增加代码复杂度。听取wa声一片之后...我决定不在这两个环节调整了。
+只有需要middle相关操作时再做调整。
+注意中间的边界。比如，只有一个数时，向中间插入，是插在这个数前面。别扭不别扭这得问语文老师。
+
+双倍快乐。
+
+长度有范围，所以两个1000长度数组，指针游来游去应该更快。用起来经济，写起来不经济。
+
+### 代码
+
+* java
+
+```java
+class FrontMiddleBackQueue {
+	Deque<Integer> q1, q2;
+
+	public FrontMiddleBackQueue() {
+		q1 = new LinkedList<>();
+		q2 = new LinkedList<>();
+	}
+
+	public void pushFront(int val) {
+		q1.addFirst(val);
+	}
+
+	public void pushMiddle(int val) {
+		while (q1.size() != 0 && q1.size() >= q2.size()) {
+			q2.addFirst(q1.pollLast());
+		}
+		while (q1.size() + 1 < q2.size()) {
+			q1.addLast(q2.pollFirst());
+		}
+		q1.addLast(val);
+	}
+
+	public void pushBack(int val) {
+		q2.addLast(val);
+	}
+
+	public int popFront() {
+		return q1.size() == 0 ? q2.size() == 0 ? -1 : q2.pollFirst() : q1.pollFirst();
+	}
+
+	public int popMiddle() {
+		while (q1.size() > q2.size()) {
+			q2.addFirst(q1.pollLast());
+		}
+		while (q1.size() < q2.size()) {
+			q1.addLast(q2.pollFirst());
+		}
+		return q1.size() == 0 ? -1 : q1.pollLast();
+	}
+
+	public int popBack() {
+		return q2.size() == 0 ? q1.size() == 0 ? -1 : q1.pollLast() : q2.pollLast();
+	}
+
+}
+```
+

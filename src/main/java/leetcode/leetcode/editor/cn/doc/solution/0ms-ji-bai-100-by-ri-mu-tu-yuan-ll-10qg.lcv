@@ -1,0 +1,46 @@
+- 此处撰写解题思路
+
+1. 找到数组中最小的一个字符串s
+2. 遍历数组中的字符串，看是不是以这个最小的字符串开始的  即用string的startsWith方法
+3. 若不是，则截串
+4. 最后数据遍历完返回s 或者这个最小的串被截完了 返回空
+
+### 代码
+
+* java
+
+```java
+class Solution {
+    public String longestCommonPrefix(String[] strs) {
+        
+        if(strs.length == 0) {
+            return "";
+        };
+
+        String s = findMinLen(strs);
+
+        for(String string : strs) {
+            while(!string.startsWith(s)){
+                if(s.length() == 0) return "";
+
+                s = s.substring(0,s.length() - 1 );
+            }
+        }
+
+        return s;
+    }
+
+    public String findMinLen(String[] strs) {
+        String minStr = strs[0];
+        
+        for(String string : strs) {
+            if(string.length() < minStr.length()){
+                minStr = string;
+            }
+        }
+
+        return minStr;
+    }
+}
+```
+
