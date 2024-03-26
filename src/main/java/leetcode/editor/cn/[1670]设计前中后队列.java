@@ -1,4 +1,4 @@
-//请你设计一个队列，支持在前，中，后三个位置的 push 和 pop 操作。 
+package leetcode.editor.cn;//请你设计一个队列，支持在前，中，后三个位置的 push 和 pop 操作。
 //
 // 请你完成 FrontMiddleBack 类： 
 //
