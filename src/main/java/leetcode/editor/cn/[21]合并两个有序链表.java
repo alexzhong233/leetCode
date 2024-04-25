@@ -1,4 +1,5 @@
 package leetcode.editor.cn;
+
 import leetcode.editor.cn.template.ListNode;
 
 //将两个升序链表合并为一个新的 升序 链表并返回。新链表是通过拼接给定的两个链表的所有节点组成的。
@@ -54,26 +55,26 @@ import leetcode.editor.cn.template.ListNode;
  */
 class Solution {
     public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
-        ListNode dom = new ListNode(-1);
-        ListNode tmp = dom;
+        ListNode listNode = new ListNode(-1);
+        ListNode temp = listNode;
         while (list1 != null && list2 != null) {
-            if (list1.val >= list2.val) {
-                tmp.next = list2;
+            if (list1.val > list2.val) {
+                temp.next = list2;
                 list2 = list2.next;
+                temp = temp.next;
             } else {
-                tmp.next = list1;
+                temp.next = list1;
                 list1 = list1.next;
+                temp = temp.next;
             }
-            tmp = tmp.next;
         }
-        if (list1 != null) {
-            tmp.next = list1;
+        if (list1 == null) {
+            temp.next = list2;
         }
-        if (list2 != null) {
-            tmp.next = list2;
+        if (list2 == null) {
+            temp.next = list1;
         }
-        return dom.next;
-
+        return listNode.next;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
