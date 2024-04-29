@@ -1,6 +1,8 @@
 
 package leetcode.editor.cn;
 import leetcode.editor.cn.template.ListNode;
+
+import javax.print.DocFlavor;
 //leetcode submit region begin(Prohibit modification and deletion)
 /**
  * Definition for singly-linked list.
@@ -15,7 +17,22 @@ import leetcode.editor.cn.template.ListNode;
  */
 public class Solution {
     public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
-        
+        ListNode p1 = headA;
+        ListNode p2 =headB;
+        while(p1!=p2){
+            if (p1!=null){
+                p1=p1.next;
+            }else{
+                p1=headB;
+            }
+            if (p2!=null){
+                p2=p2.next;
+            }else{
+                p2=headA;
+            }
+        }
+
+        return p1;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)

@@ -64,15 +64,15 @@ class Solution {
         if (n == 0) {
             return 0;
         }
-        int fast = 1, slow = 1;
-        while (fast < n) {
-            if (nums[fast] != nums[fast - 1]) {
-                nums[slow] = nums[fast];
-                ++slow;
+        int fast = 0, slow = 0;
+        while (fast<n){
+            if (nums[slow]!=nums[fast]){
+                slow++;
+              nums[slow]=nums[fast];
             }
-            ++fast;
+            fast++;
         }
-        return slow;
+        return slow+1;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
