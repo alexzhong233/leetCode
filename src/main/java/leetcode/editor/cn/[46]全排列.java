@@ -1,8 +1,6 @@
 
 package leetcode.editor.cn;
-import leetcode.editor.cn.template.ListNode;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 

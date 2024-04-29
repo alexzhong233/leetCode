@@ -3,7 +3,7 @@ package leetcode.editor.cn;
 
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
-    public int[] getCoprimes(int[] nums, int[][] edges) {
+    public String convert(String s, int numRows) {
 
     }
 }

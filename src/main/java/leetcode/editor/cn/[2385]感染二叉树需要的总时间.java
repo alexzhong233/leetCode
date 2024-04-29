@@ -1,7 +1,7 @@
 
 package leetcode.editor.cn;
+
 import leetcode.editor.cn.template.TreeNode;
-import leetcode.editor.cn.template.ListNode;
 //leetcode submit region begin(Prohibit modification and deletion)
 /**
  * Definition for a binary tree node.

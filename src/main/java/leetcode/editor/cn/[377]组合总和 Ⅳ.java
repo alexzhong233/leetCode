@@ -1,6 +1,5 @@
 
 package leetcode.editor.cn;
-import leetcode.editor.cn.template.ListNode;
 
 import java.util.HashMap;
 import java.util.Map;
