@@ -41,10 +41,13 @@ package leetcode.editor.cn;
 import leetcode.editor.cn.template.ListNode;
 import leetcode.editor.cn.template.TreeNode;
 
+import java.util.Arrays;
+
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public int[] sortArray(int[] nums) {
-
+        Arrays.sort(nums);
+        return nums;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
