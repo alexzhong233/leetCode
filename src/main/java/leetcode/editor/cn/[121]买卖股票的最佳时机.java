@@ -42,13 +42,45 @@
 
 
 package leetcode.editor.cn;
+
 import leetcode.editor.cn.template.ListNode;
 import leetcode.editor.cn.template.TreeNode;
+
+import java.util.Arrays;
+import java.util.HashMap;
+
 
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public int maxProfit(int[] prices) {
-
+//        HashMap<Integer, Integer> map = new HashMap<>();
+//        for (int i = 0; i < prices.length; i++) {
+//            map.put(prices[i], i);
+//        }
+//        int max = 0;
+//        Arrays.sort(prices);
+//        int temp = 0;
+//        while (max <= 0 && temp < prices.length) {
+//            Integer i = map.get(prices[temp]);
+//            for (int i1 = prices.length - 1; i1 >= 0; i1--) {
+//                if (prices[i1] > prices[temp] && map.get(prices[i1]) > i) {
+//                    max = Math.max(max, prices[i1] - prices[temp]);
+//                }
+//            }
+//            temp += 1;
+//        }
+//
+//        return max;
+//    }
+        int max = 0;
+        for (int i = 0; i < prices.length; i++) {
+            for (int i1 = i + 1; i1 < prices.length; i1++) {
+                if (prices[i1] > prices[i]) {
+                    max = Math.max(max, prices[i1] - prices[i]);
+                }
+            }
+        }
+        return max;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
