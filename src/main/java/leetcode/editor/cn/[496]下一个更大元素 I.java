@@ -59,37 +59,32 @@ import leetcode.editor.cn.template.ListNode;
 import leetcode.editor.cn.template.TreeNode;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Stack;
 
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public int[] nextGreaterElement(int[] nums1, int[] nums2) {
-        int[] greater = nextGreaterEle(nums2);
-        HashMap<Integer, Integer> greaterMap = new HashMap<>();
-        for (int i = 0; i < nums2.length; i++) {
-            greaterMap.put(nums2[i],greater[i]);
-        }
-        int[] res= new int[nums1.length];
-        for (int i = 0; i < nums1.length; i++) {
-            res[i]=greaterMap.get(nums1[i]);
-        }
-        return res;
-    }
-
-    int[] nextGreaterEle(int[] nums) {
-        int n = nums.length;
-        int[] res = new int[n];
-        Stack<Integer> s = new Stack<>();
-        for (int i = n - 1; i >= 0; i--) {
-            while (!s.isEmpty() && s.peek() <= nums[i]) {
-
-                s.pop();
+        Stack<Integer> stack = new Stack<>();
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i = nums2.length - 1; i >= 0; i--) {
+            int i1 = nums2[i];
+            while (!stack.isEmpty() && stack.peek() <= i1) {
+                stack.pop();
             }
-            res[i] = s.isEmpty() ? -1 : s.peek();
-            s.push(nums[i]);
+            if (!stack.isEmpty()) {
+                map.put(i1, stack.peek());
+            } else {
+                map.put(i1, -1);
+            }
+            stack.add(i1);
         }
-        return res;
-
+        int[] ints = new int[nums1.length];
+        for (int j = 0; j < nums1.length; j++) {
+            int i = nums1[j];
+            ints[j] = map.get(i);
+        }
+        return ints;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)

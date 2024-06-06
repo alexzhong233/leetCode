@@ -52,17 +52,21 @@ import java.util.Stack;
 class Solution {
     public int[] dailyTemperatures(int[] temperatures) {
 
-        int n = temperatures.length;
-        int[] res = new int[n];
-        Stack<Integer> integers = new Stack<Integer>();
-        for (int i = n - 1; i >= 0; i--) {
-//            把放元素改成了放索引 push nums i->push i   get i->get stack
-           while(!integers.isEmpty() && temperatures[integers.peek()] <= temperatures[i]) {
-                integers.pop();
+        int length = temperatures.length;
+        int[] res = new int[length];
+        Stack<Integer> stack = new Stack<Integer>();
+        for (int i = length - 1; i >= 0; i--) {
+            int temperature = temperatures[i];
+//更高的温度
+            while (!stack.isEmpty() && temperatures[stack.peek()] <= temperature) {
+                stack.pop();
             }
-            res[i]=integers.isEmpty()?0:integers.peek()-i;
-            integers.push(i);
-
+            if (stack.isEmpty()) {
+                res[i] = 0;
+            } else {
+                res[i] = stack.peek() - i;
+            }
+            stack.add(i);
         }
         return res;
     }
