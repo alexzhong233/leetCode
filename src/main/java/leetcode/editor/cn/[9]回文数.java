@@ -49,22 +49,23 @@ package leetcode.editor.cn;//给你一个整数 x ，如果 x 是一个回文整
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
 
-//    public boolean isPalindrome(int x) {
+    //    public boolean isPalindrome(int x) {
 //String sx = String.valueOf(x);
 //String sc = new StringBuffer(sx).reverse().toString();
 //return sx.equals(sc);
 //    }
     public boolean isPalindrome(int x) {
-        if (x < 0 ||(x%10==0&&x!=0)) {
-        return false;
+        String s = String.valueOf(x);
+        int length = s.length();
+        int left = 0, right = length - 1;
+        while (left < right) {
+            if (s.charAt(left) != s.charAt(right)) {
+                return false;
+            }
+            left++;
+            right--;
         }
-
-        int retNum =0;
-        while (x>retNum){
-            retNum = retNum*10+x%10;
-            x/=10;
-        }
-        return x==retNum||x==retNum/10;
+        return true;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)

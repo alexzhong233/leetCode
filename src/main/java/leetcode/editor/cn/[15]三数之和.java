@@ -57,39 +57,60 @@
 
 
 package leetcode.editor.cn;
+
 import leetcode.editor.cn.template.ListNode;
 import leetcode.editor.cn.template.TreeNode;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Level;
 
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public List<List<Integer>> threeSum(int[] nums) {
-        List<List<Integer>> ans =new ArrayList<>();
+        List<List<Integer>> ans = new ArrayList<>();
         int len = nums.length;
-        if (nums==null||len<3){return ans;}
+        if (len < 3) {
+            return ans;
+        }
         Arrays.sort(nums);
         for (int i = 0; i < len; i++) {
-            if (nums[i]>0){break;}
-            if (i>0&&nums[i]==nums[i-1]){
+//            大于0无法成为数组
+            int num = nums[i];
+
+            if (num > 0) {
+                break;
+            }
+//           去重
+            if (i > 0 && num == nums[i - 1]) {
                 continue;
             }
-            int l =i+1;
-            int r =len-1;
+            int right = len - 1;
+            int left = i + 1;
+            while (left < right) {
+                int i1 = num + nums[left] + nums[right];
+                if (i1 == 0) {
+                    ans.add(Arrays.asList(num, nums[left], nums[right]));
+                    //           去重
 
-            while (l<r){
-                int sum = nums[i]+nums[l]+nums[r];
-                if (sum==0){
-                    ans.add(Arrays.asList(nums[i],nums[l],nums[r]));
-                    while (l<r&&nums[l]==nums[l+1]){l++;}
-                    while (l<r&&nums[r]==nums[r-1]){r--;}
-                    l++;
-                    r--;
+                    while (left < right && nums[left] == nums[left + 1]) {
+                        left++;
+                    }
+                    //           去重
+                    while (left < right && nums[right] == nums[right - 1]) {
+                        right--;
+                    }
+                    left++;
+                    right--;
+                } else if (i1 > 0) {
+                    right--;
+
+                } else {
+                    left++;
+
                 }
-                else if (sum<0){l++;}
-                else if (sum>0){r--;}
+
             }
         }
         return ans;

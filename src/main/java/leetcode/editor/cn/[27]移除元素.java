@@ -61,16 +61,19 @@
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public int removeElement(int[] nums, int val) {
-int n = nums.length;
-int slow =0,fast =0;
-while (fast<n){
-    if (nums[fast]!=val){
-        nums[slow]=nums[fast];
-    slow++;
-    }
-    fast++;
-}
-return slow;
+//        和移除0一个思路
+        int length = nums.length;
+        int left = 0, right =0;
+        int remove = 0;
+        while (right<length){
+           if (nums[right]!=val){
+               nums[left]=nums[right];
+               remove++;
+               left++;
+           }
+            right++;
+        }
+        return remove;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
