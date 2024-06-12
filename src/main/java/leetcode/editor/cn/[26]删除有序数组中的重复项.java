@@ -60,19 +60,24 @@ package leetcode.editor.cn;//给你一个 非严格递增排列 的数组 nums �
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public int removeDuplicates(int[] nums) {
-        int n = nums.length;
-        if (n == 0) {
-            return 0;
-        }
-        int fast = 0, slow = 0;
-        while (fast<n){
-            if (nums[slow]!=nums[fast]){
+        int length = nums.length;
+        if (length==0){
+        return 0;}
+        int fast =0;
+        int slow = 0;
+        int count =1;
+        while (fast<length&&slow<length){
+            if (nums[fast]==nums[slow]){
+                fast++;
+            }else{
                 slow++;
-              nums[slow]=nums[fast];
+                nums[slow]=nums[fast];
+                count++;
+                fast++;
             }
-            fast++;
         }
-        return slow+1;
+
+        return count+1;
     }
-}
+    }
 //leetcode submit region end(Prohibit modification and deletion)
