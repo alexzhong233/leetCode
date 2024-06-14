@@ -83,8 +83,7 @@ int sum = 0;
         for (int i = 0; i < s.length(); i++) {
             int now = getValue(s.charAt(i));
             sum=sum+now;
-            if (pre<now){
-            sum=sum-pre*2;}
+            if (pre<now) sum = sum - pre * 2;
             pre = now;
 
         }
