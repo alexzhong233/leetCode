@@ -45,17 +45,21 @@ import java.util.Map;
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public int lengthOfLongestSubstring(String s) {
-        int n = s.length(), ans = 0;
+        int res = 0;
+        int n = s.length(), index = 0;
         Map<Character, Integer> map = new HashMap<>();
-        for (int end = 0, start = 0; end < n; end++) {
-            char alpha = s.charAt(end);
-            if (map.containsKey(alpha)) {
-                start = Math.max(map.get(alpha), start);
+        for (int i = 0; i < n; i++) {
+            Character ch = s.charAt(i);
+
+            while (map.containsKey(ch)) {
+                map.remove(s.charAt(index));
+                index++;
             }
-            ans = Math.max(ans, end - start + 1);
-            map.put(s.charAt(end), end + 1);
+            map.put(ch, 1);
+            res = Math.max(res,i-index+1);
         }
-        return ans;
+
+        return res;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)

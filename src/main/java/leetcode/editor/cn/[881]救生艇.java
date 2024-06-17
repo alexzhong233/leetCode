@@ -50,10 +50,29 @@
 package leetcode.editor.cn;
 import leetcode.editor.cn.template.ListNode;
 import leetcode.editor.cn.template.TreeNode;
+
+import java.util.Arrays;
+
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public int numRescueBoats(int[] people, int limit) {
+        Arrays.sort(people);
+        int left =0,right =people.length-1;
+        int count=0 ;
+//        等于时 这个人需要单独一艘
 
+        while (right>=left){
+            int fat = people[left] + people[right];
+            if (fat>limit){
+                right--;
+                count++;
+            }else{
+                left++;
+                right--;
+                count++;
+            }
+        }
+        return count;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)

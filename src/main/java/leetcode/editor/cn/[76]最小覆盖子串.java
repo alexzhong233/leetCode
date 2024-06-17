@@ -64,74 +64,54 @@ import leetcode.editor.cn.template.ListNode;
 import leetcode.editor.cn.template.TreeNode;
 
 import java.io.FileFilter;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UnknownFormatConversionException;
 
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public String minWindow(String s, String t) {
-
-        if (t == null || s == null || t.length() > s.length()) {
-            return "";
+        Map<Character, Integer> smap = new HashMap<>();
+        Map<Character, Integer> tmap = new HashMap<>();
+        int left = 0;
+        String res = "";
+        int length = Integer.MAX_VALUE;
+        for (int i = 0; i < t.length(); i++) {
+            char key = t.charAt(i);
+            tmap.put(key, tmap.getOrDefault(key, 0) + 1);
         }
-        // 记录t中每个字符出现的次数
-        char[] tc = t.toCharArray();
-        // 记录窗口中每个字符出现的次数
-        char[] sc = s.toCharArray();
-        // 记录t中每个字符出现的次数
-        int[] need = new int[128];
-        // 记录窗口中每个字符出现的次数
-        int[] window = new int[128];
-        //t中字符得次数
-        for (int i = 0; i < tc.length; i++) {
-            need[tc[i]]++;
-        }
-//        t中不同字符得数量
-        int valid = 0;
-        for (int i : need) {
-            if (i > 0) {
-                valid++;
-            }
-        }
-        int left = 0, right = 0,    //滑动区间
-                count = 0,          //完全匹配字符计数器增加
-                start = 0,          //开始位置
-                minLength = Integer.MAX_VALUE;
-
-        while (right < sc.length) {
-            char c = sc[right];
-//            如果遇到字符c 则更新 滑动窗口中得c值计数器
-            if (need[c] > 0) {
-                window[c]++;
-
-                if (window[c] == need[c]) {
-//               如果字符完全匹配 完全匹配字符计数器增加
-                    count++;
+        boolean is = true;
+        for (int i = 0; i < s.length(); i++) {
+            is = true;
+            char key = s.charAt(i);
+            smap.put(key, smap.getOrDefault(key, 0) + 1);
+//            便利是否达到要求
+            for (Character c : tmap.keySet()) {
+                if (smap.get(c) == null || smap.get(c) < tmap.get(c)) {
+                    is = false;
+//                 变量   continue;
                 }
             }
-            right++;
-
-            //当窗口全部包含后 缩小左边
-
-            while (count == valid) {
-                if (right - left < minLength) {
-                    start = left;
-                    minLength = right - left;
+//达到要求
+            while (is) {
+                int l = i - left + 1;
+                length = Math.min(l, length);
+                if (length == l) {
+                    res = s.substring(left, i + 1);
                 }
-                char d = sc[left];
-                if (need[d] > 0) {
-//                    如果滑动窗口满足了要求 则让左侧移除一个字符 这样可以让窗口继续右移
-                    if (window[d] == need[d]) {
-                        count--;
-                    }
-                    window[d]--;
-                }
+                char ch = s.charAt(left);
+                smap.put(ch, smap.get(ch) - 1);
                 left++;
+                for (Character c : tmap.keySet()) {
+                    if (smap.get(c) == null || smap.get(c) < tmap.get(c)) {
+                        is = false;
+//                 变量   continue;
+                    }
+                }
             }
-
         }
-        return minLength == Integer.MAX_VALUE ? "" : s.substring(start, start + minLength);
-
-
+        return res;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
