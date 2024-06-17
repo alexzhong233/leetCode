@@ -55,57 +55,36 @@ import java.util.List;
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public List<Integer> findAnagrams(String s, String p) {
-        List<Integer> start = new ArrayList<>();
-        if (s == null || p == null || s.length() < p.length()) {
-            return start;
+        ArrayList<Integer> res = new ArrayList<>();
+        if (s.length()<p.length()){
+            return res;
         }
-        char[] full = s.toCharArray();
-        char[] sub = p.toCharArray();
-
-        int left = 0, right = 0;
-
-        int[] window = new int[128];
-        int[] need = new int[128];
-
-
-        for (int i = 0; i < sub.length; i++) {
-            need[sub[i]]++;
+        int[] window = new int[26];
+        int[] count = new int[26];
+        for (int i = 0; i < p.length(); i++) {
+            count[p.charAt(i) - 'a']++;
+            window[s.charAt(i) - 'a']++;
         }
-
-        int vaild = 0;
-
-        for (int i : need) {
-            if (i > 0) {
-                vaild++;
+        if (check(count, window)) {
+            res.add(0);
+        }
+        for (int left = 0, right = p.length(); right < s.length(); left++, right++) {
+            window[s.charAt(right) - 'a']++;
+            window[s.charAt(left) - 'a']--;
+            if (check(count, window)) {
+                res.add(left + 1);
             }
         }
-        int count = 0;
+        return res;
+    }
 
-        while (right < full.length) {
-            char c = full[right];
-            if (need[c]>0){
-                window[c]++;
-                if (need[c]==window[c]){
-                    count++;
-                }
-            }
-            right++;
-            while (count==vaild){
-                char l =full[left];
-                if (need[l]>0){
-                    if (right-left==sub.length){
-                        start.add(left);
-                    }
-                        if (need[l]==window[l]){
-                            count--;
-                        }
-                        window[l]--;
-
-                }
-                left++;
+    private boolean check(int[] count, int[] window) {
+        for (int i = 0; i < count.length; i++) {
+            if (count[i] != window[i]) {
+                return false;
             }
         }
-        return start;
+        return true;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
