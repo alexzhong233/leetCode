@@ -52,41 +52,46 @@ import leetcode.editor.cn.template.TreeNode;
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public int[] searchRange(int[] nums, int target) {
-        return new int[]{leftSearchRange(nums, target), rightSearchRange(nums, target)};
+        if (nums.length == 0) {
+            return new int[]{-1, -1};
+        }
+        int left = leftSearchRange(nums, target);
+        if (left == -1) return new int[]{-1, -1};
+        else {
+            return new int[]{left, rightSearchRange(nums, target)};
+        }
 
     }
 
     public int leftSearchRange(int[] nums, int target) {
-        int left = 0, right = nums.length - 1;
-        while (left <= right) {
-            int mid = left + (right - left) / 2;
-            if (nums[mid] == target) {
-                right = mid - 1;  //锁定右边界
-            } else if (nums[mid] < target) {
+//    找左边的 正好等于
+        int left = 0, right = nums.length;
+        while (left < right) {
+            int mid = (left + right) / 2;
+            if (nums[mid] < target) {
                 left = mid + 1;
-            } else if (nums[mid] > target) {
-                right = mid - 1;
+            } else {
+                right = mid;
             }
         }
-        if (left == nums.length) return -1;
+        if (left>=nums.length){
+            return -1;
+        }
         return nums[left] == target ? left : -1;
-
     }
 
     public int rightSearchRange(int[] nums, int target) {
-        int left = 0, right = nums.length - 1;
-        while (left <= right) {
-            int mid = left + (right - left) / 2;
-            if (nums[mid] == target) {
-                left = mid + 1;//锁定左边界
-            } else if (nums[mid] < target) {
+//     找右边的 第一个大于
+        int left = 0, right = nums.length;
+        while (left < right) {
+            int mid = (left + right) / 2;
+            if (nums[mid] <= target) {
                 left = mid + 1;
-            } else if (nums[mid] > target) {
-                right = mid - 1;
+            } else {
+                right = mid;
             }
         }
-        if (right < 0) return -1;
-        return nums[right] == target ? right : -1;
+        return left - 1;
 
     }
 }
