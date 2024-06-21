@@ -53,34 +53,23 @@ import java.util.HashMap;
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public int maxProfit(int[] prices) {
-//        HashMap<Integer, Integer> map = new HashMap<>();
-//        for (int i = 0; i < prices.length; i++) {
-//            map.put(prices[i], i);
-//        }
-//        int max = 0;
-//        Arrays.sort(prices);
-//        int temp = 0;
-//        while (max <= 0 && temp < prices.length) {
-//            Integer i = map.get(prices[temp]);
-//            for (int i1 = prices.length - 1; i1 >= 0; i1--) {
-//                if (prices[i1] > prices[temp] && map.get(prices[i1]) > i) {
-//                    max = Math.max(max, prices[i1] - prices[temp]);
-//                }
-//            }
-//            temp += 1;
-//        }
-//
-//        return max;
-//    }
-        int max = 0;
-        for (int i = 0; i < prices.length; i++) {
-            for (int i1 = i + 1; i1 < prices.length; i1++) {
-                if (prices[i1] > prices[i]) {
-                    max = Math.max(max, prices[i1] - prices[i]);
-                }
-            }
+//k=1的情况
+        int length = prices.length;
+
+        int[][][] dp = new int[length][2][2];
+
+            dp[0][1][0] = 0;
+            dp[0][1][1] = -prices[0];
+
+        for (int i = 1; i < length; i++) {
+
+//                不持有
+                dp[i][1][0] = Math.max( dp[i-1][1][0],dp[i-1][1][1]+prices[i]);
+//                持有
+                dp[i][1][1] = Math.max( dp[i-1][1][1],dp[i-1][0][0]-prices[i]);
+
         }
-        return max;
+        return dp[length-1][1][0];
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
