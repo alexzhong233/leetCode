@@ -53,16 +53,13 @@ class Solution {
     public int[] nextGreaterElements(int[] nums) {
         int n = nums.length;
         int[] res = new int[n];
-        Stack<Integer> integers = new Stack<>();
-
-        for (int i = 2*n-1; i >=0; i--) {
-//            i%n 留下的是在原数组中的i长度
-            while (!integers.isEmpty()&&integers.peek()<=nums[i%n]){
-                integers.pop();
+        Stack<Integer> stack = new Stack<>();
+        for (int i = 2*n-1; i >= 0; i--) {
+            while (!stack.isEmpty()&&stack.peek()<=nums[i%n]){
+                stack.pop();
             }
-            res[i%n]=integers.isEmpty()?-1:integers.peek();
-            integers.push(nums[i%n]);
-        }
+           res[i%n] = stack.isEmpty()?-1:stack.peek();
+            stack.add(nums[i%n]);}
         return res;
     }
 }
