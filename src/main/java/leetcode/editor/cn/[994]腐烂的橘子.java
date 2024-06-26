@@ -59,13 +59,55 @@
 
 
 package leetcode.editor.cn;
+
 import leetcode.editor.cn.template.ListNode;
 import leetcode.editor.cn.template.TreeNode;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
+
+    private static final int[][] DIRECTIONS = {{0, 1}, {1, 0}, {-1, 0}, {0, -1}};
+
     public int orangesRotting(int[][] grid) {
 
+        int level = 0, freshNum = 0, m = grid.length, n = grid[0].length;
+        Queue<int[]> q = new LinkedList<>();
+        boolean[][] checked = new boolean[m][n];
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (grid[i][j] == 2) {
+                    q.add(new int[]{i, j});
+                    checked[i][j] = true;
+                } else if (grid[i][j] == 1) {
+                    freshNum++;
+                }
+            }
+        }
+        if (freshNum == 0) {
+            return 0;
+        }
+        while (!q.isEmpty()) {
+            int size = q.size();
+            level++;
+            for (int i = 0; i < size; i++) {
+                int[] cur = q.poll();
+                int cx= cur[0];
+                int cy =cur[1];
+                for (int[] direction : DIRECTIONS) {
+                    int nx = cx+direction[0],ny=direction[1]+cy;
+                    if (nx >= 0 && nx < m && ny >= 0 && ny < n && !checked[nx][ny]  && grid[nx][ny] == 1) {
+                        q.offer(new int[]{nx,ny});
+                        checked[nx][ny]=true;
+                        freshNum--;
+                    }
+                }
+            }
+        }
+
+return freshNum>0?-1:level-1;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
