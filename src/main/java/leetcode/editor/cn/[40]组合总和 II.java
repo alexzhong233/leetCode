@@ -1,3 +1,4 @@
+import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -5,33 +6,35 @@ import java.util.List;
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public List<List<Integer>> combinationSum2(int[] candidates, int target) {
-        List<List<Integer>> res = new ArrayList<>();
+        ArrayList<List<Integer>> lists = new ArrayList<>();
+        boolean[] used = new boolean[candidates.length];
+        for (int i = 0; i < candidates.length; i++) {
+            used[i] = true;
+            ArrayList<Integer> integers = new ArrayList<>();
+            integers.add(i);
+            int sum = candidates[i];
+            bt(used, target, lists, sum, integers,candidates);
+        }
 
-        List<Integer> path = new ArrayList<>();
-        Arrays.sort(candidates);
-        backTrack(candidates, target, 0, path, res);
-        return res;
-
+        return lists;
     }
 
-    private void backTrack(int[] candidates, int target, int i, List<Integer> path, List<List<Integer>> res) {
-        if (target < 0) {
+    private void bt(boolean[] used, int target, ArrayList<List<Integer>> lists, int sum, ArrayList<Integer> integers,int[] candidates) {
+        if (sum == target) {
+            lists.add(new ArrayList<>(integers));
             return;
         }
-        if (target == 0) {
-            res.add(new ArrayList<>(path));
+        if (sum > target) {
             return;
         }
-        for (int j = i; j < candidates.length; j++) {
-            if (j > i && candidates[j - 1] == candidates[j]) {
-//               运算过了
-                continue;
+        for (int i = 0; i < candidates.length; i++) {
+            if (!used[i]){
+                used[i]=true;
+                ArrayList<Integer> a1 = new ArrayList<>(integers);
+                a1.add(candidates[i]);
+                bt(used,target,lists,sum+candidates[i],a1,candidates);
+                used[i]=false;
             }
-            path.add(candidates[j]);
-//            只能使用一次 所以要加1 可以重复的不用加
-
-            backTrack(candidates, target - candidates[j], j+1, path, res);
-            path.remove(path.size() - 1);
         }
     }
 }
