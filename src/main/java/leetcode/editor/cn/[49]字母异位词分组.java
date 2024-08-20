@@ -46,43 +46,26 @@ package leetcode.editor.cn;
 import leetcode.editor.cn.template.ListNode;
 import leetcode.editor.cn.template.TreeNode;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public List<List<String>> groupAnagrams(String[] strs) {
-        HashMap<String, List<String>> hashMap = new HashMap<>();
+        Map<String, List<String>> hashMap =  new HashMap<>();
         for (String str : strs) {
-            char[] charArray = str.toCharArray();
-            int[] lowers = new int[26];
-            for (char c : charArray) {
-                lowers[c-'a']++;
-            }
-            StringBuffer sb = new StringBuffer();
-            for (int i = 0; i < lowers.length; i++) {
-                int lower = lowers[i];
-                if (lower != 0) {
-//                    这里要分清是哪个字母 这个加要的是排序
-                    sb.append(i + 'a');
-//                    这里是次数
-                    sb.append(lower);
-
-                }
-            }
-            String string = sb.toString();
-
-            if (hashMap.containsKey(string)){
-                hashMap.get(string).add(str);
-            }else{
-                List<String> strings = new ArrayList<>();
+            char[] chars = str.toCharArray();
+            Arrays.sort(chars);
+            String str_s = String.valueOf(chars);
+            if (hashMap.containsKey(str_s)){
+                hashMap.get(str_s).add(str);
+            } else {
+                ArrayList<String> strings = new ArrayList<>();
                 strings.add(str);
-                hashMap.put(string,strings);
+                hashMap.put(str_s, strings);
             }
         }
-       return hashMap.values().stream().toList();
-
+        List<List<String>> resultList = new ArrayList<>(hashMap.values());
+        return resultList;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)

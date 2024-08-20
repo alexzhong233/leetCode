@@ -77,29 +77,25 @@ import java.util.Stack;
 class Solution {
     public String simplifyPath(String path) {
         String[] split = path.split("/");
-        StringBuilder sb = new StringBuilder("/");
-        Stack<String> stack = new Stack<>();
+        Stack<String> st = new Stack<>();
         for (String s : split) {
-            if ("..".equals(s)) {
-                if (!stack.isEmpty()) {
-                    stack.pop();
-                }
-            }
-//            注意空字符串可以背分割出来
-            else if (!s.isEmpty()&&!".".equals(s)) {
-                stack.add(s);
+            if ("..".equals(s)){
+            if (!st.empty()){
+                st.pop();}
+            }else if (".".equals(s)||s==null|| s.isEmpty()){}else{
+                st.add(s);
             }
         }
 
-        Iterator<String> iterator = stack.iterator();
-        while (iterator.hasNext()) {
-            sb.append(iterator.next());
-            if (iterator.hasNext()) {
-                sb.append("/");
-            }
+        StringBuilder sb= new StringBuilder("/");
+        for (int i = 0; i < st.size(); i++) {
+            String string = st.get(i);
+            sb.append(string);
+            if (i<st.size()-1){
+            sb.append("/");}
         }
-
         return sb.toString();
+
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)

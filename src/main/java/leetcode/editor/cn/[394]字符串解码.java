@@ -60,6 +60,7 @@
 
 
 package leetcode.editor.cn;
+
 import leetcode.editor.cn.template.ListNode;
 import leetcode.editor.cn.template.TreeNode;
 
@@ -68,37 +69,36 @@ import java.util.Stack;
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public String decodeString(String s) {
-        char[] charArray = s.toCharArray();
-        Stack<Integer> stack = new Stack<>();
-        Stack<String> cs = new Stack<>();
-        StringBuilder str= new StringBuilder();
-        int ints =0;
-        for (char c : charArray) {
-            if (c>='a'&&c<='z'){
-                str.append(c);
-            } else if (Character.isDigit(c)) {
-                int num = c - '0';
-                if (ints==0){
-                    ints+=num;
-                }else {
-                    ints=10*ints+num;
+        StringBuilder sb = new StringBuilder();
+        Stack<String> stringStack = new Stack<>();
+        Stack<Integer> integerStack = new Stack<>();
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+//            数字
+            if (Character.isDigit(c)) {
+                int t = c - '0';
+                while (i + 1 < s.length() && Character.isDigit(s.charAt(i + 1))) {
+                    t = t * 10 + (s.charAt(i + 1) - '0');
+                    i++;
                 }
-
-            }else if (c=='['){
-                cs.add(str.toString());
-                stack.add(ints);
-                str=new StringBuilder();
-                ints=0;
-            }else if (c == ']') {
-                int count = stack.pop();
-//                cs.pop是上段字符，str.repeat重复本段字符多少次  格式是  cs.pop "" stack.pop 3 str a
-                str = new StringBuilder(cs.pop() + str.toString().repeat(Math.max(0, count))
-                );
+                integerStack.add(t);
+//                字符直接加在后面
+            } else if (Character.isLetter(c)) {
+                sb.append(c);
+//                左括号 字符入栈
+            } else if (c == '[') {
+                stringStack.add(sb.toString());
+                sb=new StringBuilder();
+//                右括号 出栈计算
+            } else if (c == ']') {
+                int count = integerStack.pop();
+                sb =new StringBuilder(stringStack.pop()+sb.toString().repeat(count));
             }
+
         }
-        return str.toString();
+        return sb.toString();
     }
-    }
+}
 
 //leetcode submit region end(Prohibit modification and deletion)
 

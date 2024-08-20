@@ -47,16 +47,18 @@ package leetcode.editor.cn;//给定一个整数数组 nums 和一个整数目标
 
 
 import java.util.HashMap;
+import java.util.Map;
 
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public int[] twoSum(int[] nums, int target) {
-        HashMap<Integer, Integer> map = new HashMap<>();
+        Map<Integer,Integer> map = new HashMap<>();
         for (int i = 0; i < nums.length; i++) {
-            if (map.containsKey(target-nums[i])){
-                return new int[]{i, map.get(target - nums[i])};
+            if (!map.containsKey(target-nums[i])){
+                map.put(nums[i],i);
+            }else{
+                return new int[]{map.get(target-nums[i]),i};
             }
-            map.put(nums[i],i);
         }
         return null;
     }

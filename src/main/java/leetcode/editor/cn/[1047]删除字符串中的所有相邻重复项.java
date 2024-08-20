@@ -42,21 +42,18 @@ import java.util.Stack;
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public String removeDuplicates(String s) {
-        Stack<Character> stc = new Stack<>();
-        char[] charArray = s.toCharArray();
-        for (char c : charArray) {
-            if (!stc.isEmpty()&&c==stc.peek()){
-                stc.pop();
-            }else{
-                stc.add(c);
-            }
-
+   Stack<Character> st = new Stack<>();
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (!st.empty()&&st.peek()==c){
+                st.pop();
+            }else{st.add(c);}
         }
-        StringBuilder str = new StringBuilder();
-        for (Character c : stc) {
-            str.append(c);
+        StringBuilder sb = new StringBuilder();
+        for (Character character : st) {
+            sb.append(character);
         }
-        return str.toString();
+        return sb.toString();
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)

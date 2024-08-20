@@ -47,54 +47,22 @@ import java.util.Stack;
 class Solution {
     public int trap(int[] height) {
         int sum = 0;
-        Stack<Integer> stack = new Stack<>();
+        Stack<Integer> st = new Stack<>();
         for (int i = 0; i < height.length; i++) {
+//可以形成得情况
 
-            if (!stack.isEmpty() && height[i] > height[stack.peek()]) {
-                //由于栈中有可能存在多个元素，移除栈顶元素之后，剩下的元素和此时的元素也有可能形成凹
-                // 因此，我们需要不断的比较此时的元素和栈顶元素
-                // 此时的元素依旧大于栈顶元素时，我们去计算此时的凹槽面积
-                // 借助 whiLe 循环来实现这个操作
-                while (!stack.empty()&&height[i]>height[stack.peek()]){
-                    int bottom =stack.pop();
-                    //2、如果栈不为空，即栈中有元素，即凹槽的左侧存在
-                    if (!stack.isEmpty()){
-                        // 凹槽左侧的高度 height[stack.peek(）和 凹槽右侧的高度 height[]
-                        // 这两者的最小值减去凹槽底部的高度就是凹槽的高度
-                        int h  = Math.min(height[stack.peek()],height[i])-height[bottom];
-//                        凹槽长度 
-                        int w = i - stack.peek() - 1;
-                        System.out.println("凹槽右侧-->" + i);
-                        System.out.println("凹槽左侧-->" + stack.peek());
-                        System.out.println("凹槽高度--> "+ h);
-                        System.out.println("凹槽宽度-->" + w);
-                        System.out.println("-----------------");
-                        sum+=h*w;
-                    }
-
+            while (!st.empty() && height[i] > height[st.peek()]) {
+                int bottom = st.pop();
+                if (!st.empty()) {
+                    Integer peek = st.peek();
+                    int h = Math.min(height[peek], height[i]) - height[bottom];
+                    int w = i - peek - 1;
+                    sum += h * w;
                 }
-
             }
-            stack.add(i);
+
+            st.add(i);
         }
-//        Stack<ArrayList<Integer>> arrayLists = new Stack<>();
-//        for (int i = 0; i < height.length; i++) {
-//            int iheight = height[i];
-//            if (!arrayLists.empty()){
-//                ArrayList<Integer> peek = arrayLists.peek();
-//                Integer index = peek.get(0);
-//                Integer sheight = peek.get(1);
-//                if (iheight>sheight){
-//                    sum+=(i-index-1)*(iheight-sheight);
-//                    arrayLists.pop();
-//                }
-//            }
-//
-//            ArrayList<Integer> integers = new ArrayList<>();
-//            integers.add(i);
-//            integers.add(iheight);
-//            arrayLists.add(integers);
-//        }
         return sum;
     }
 }

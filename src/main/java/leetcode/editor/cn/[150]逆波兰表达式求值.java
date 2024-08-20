@@ -91,27 +91,29 @@ import java.util.Stack;
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public int evalRPN(String[] tokens) {
-        Stack<Integer> stack = new Stack<>();
+        Stack<Integer> st = new Stack<>();
         for (String token : tokens) {
-            try {
-                int i = Integer.parseInt(token);
-                stack.add(i);
-            } catch (Exception e) {
-//                当无法解析 是运算符
-                Integer pop = stack.pop();
-                Integer pop1 = stack.pop();
-                if ("+".equals(token)) {
-                    stack.add(pop1+ pop);
-                } else if ("-".equals(token)) {
-                    stack.add(pop1-pop);
-                } else if ("*".equals(token)) {
-                    stack.add(pop1* pop);
-                } else if ("/".equals(token)) {
-                    stack.add(pop1 / pop);
-                }
+            if ("+".equals(token)) {
+                int i1 = st.pop();
+                int i2 = st.pop();
+                st.add(i1 + i2);
+            }else if ("-".equals(token)){
+                int i1 = st.pop();
+                int i2 = st.pop();
+                st.add(i2 - i1);
+            }else if ("*".equals(token)){
+                int i1 = st.pop();
+                int i2 = st.pop();
+                st.add(i1 * i2);
+            }else if ("/".equals(token)){
+                int i1 = st.pop();
+                int i2 = st.pop();
+                st.add(i2 / i1);
+            }else{
+                st.add(Integer.parseInt(token));
             }
         }
-        return stack.pop();
+            return st.pop();
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
