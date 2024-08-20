@@ -57,27 +57,27 @@ package leetcode.editor.cn;//给你一个 非严格递增排列 的数组 nums �
 // Related Topics 数组 双指针 👍 3508 👎 0
 
 
+
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public int removeDuplicates(int[] nums) {
         int length = nums.length;
-        if (length==0){
-        return 0;}
-        int fast =0;
-        int slow = 0;
-        int count =1;
-        while (fast<length&&slow<length){
-            if (nums[fast]==nums[slow]){
-                fast++;
-            }else{
-                slow++;
-                nums[slow]=nums[fast];
-                count++;
-                fast++;
-            }
+        if (length == 0) {
+            return 0;
         }
 
-        return count+1;
+        int fast = 0;
+        int slow = 0;
+int count =0;
+while (fast<length){
+    if (nums[fast]!=nums[slow]){
+        slow++;
+        nums[slow]=nums[fast];
+        count++;
     }
+    fast++;
+}
+return count+1;
     }
+}
 //leetcode submit region end(Prohibit modification and deletion)

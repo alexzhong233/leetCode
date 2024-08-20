@@ -40,6 +40,7 @@
 
 
 package leetcode.editor.cn;
+
 import leetcode.editor.cn.template.ListNode;
 import leetcode.editor.cn.template.TreeNode;
 
@@ -50,25 +51,23 @@ import java.util.Objects;
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public boolean isAnagram(String s, String t) {
-        if(s.length()!=t.length())return false;
-        Map<Character,Integer> map1 = new HashMap<>();
-        Map<Character,Integer> map2 = new HashMap<>();
-        char[] charArray = s.toCharArray();
-        char[] charArray1 = t.toCharArray();
-        for (char c : charArray) {
-            map1.put(c, map1.getOrDefault(c,0)+1);
+        if (s.length() != t.length()) return false;
+        Map<Character,Integer> sMap = new HashMap<>();
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            sMap.put(c,sMap.getOrDefault(c,0)+1);
         }
-        for (char c : charArray1) {
-            map2.put(c, map2.getOrDefault(c,0)+1);
-        }
-        for (Map.Entry<Character, Integer> entry : map1.entrySet()) {
-            Character k = entry.getKey();
-            Integer v = entry.getValue();
-            if (!Objects.equals(map2.get(k), v)) {
+        for (int i = 0; i < t.length(); i++) {
+            char c =t.charAt(i);
+            if (!sMap.containsKey(c)){
                 return false;
             }
+            sMap.put(c,sMap.getOrDefault(c,0)-1);
+            if (sMap.get(c)<=0){
+                sMap.remove(c);
+            }
         }
-        return true;
+        return sMap.isEmpty();
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)

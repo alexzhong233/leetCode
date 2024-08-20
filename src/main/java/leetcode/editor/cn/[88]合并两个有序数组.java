@@ -64,24 +64,32 @@ package leetcode.editor.cn;
 import leetcode.editor.cn.template.ListNode;
 import leetcode.editor.cn.template.TreeNode;
 
+import java.util.Arrays;
+
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public void merge(int[] nums1, int m, int[] nums2, int n) {
+//    System.arraycopy(nums2,0,nums1,m,n);
+//        Arrays.sort(nums1);
+
         int i = m - 1;
         int j = n - 1;
         int cur = nums1.length - 1;
-
-        while (j>=0){
-            if (i>=0&&nums1[i]>nums2[j]){
-                nums1[cur]=nums1[i];
-                cur--;
+//        当j没有完全放入
+        while (j >= 0) {
+//            如果i还有 并且 比j大
+            if (i >= 0 && nums1[i] > nums2[j]) {
+//                先把i调到cur得位置上
+                nums1[cur] = nums1[i];
                 i--;
-            }else{
-                nums1[cur]=nums2[j];
-                cur--;
+            } else {
+//                吧j放到cur位置上
+                nums1[cur] = nums2[j];
                 j--;
             }
+            cur--;
         }
+
     }
 
 }

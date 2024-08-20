@@ -45,19 +45,17 @@ import java.util.Set;
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public int[] intersection(int[] nums1, int[] nums2) {
-        //用set集合存储nums1的数字
-        Set<Integer> set = new HashSet<>();
-        for(int num : nums1){
-            set.add(num);
+        Set<Integer> s1 = new HashSet<>();
+        Set<Integer> s2 = new HashSet<>();
+        for (int j : nums1) {
+            s1.add(j);
         }
-
-        Set<Integer> res = new HashSet<>();
-        for(int num : nums2){
-            if(set.contains(num))
-                res.add(num);
+        for (Integer i : nums2) {
+            if (s1.contains(i)){
+                s2.add(i);
+            }
         }
-
-        return res.stream().mapToInt(Integer :: valueOf).toArray();
+return s2.stream().mapToInt(Integer::valueOf).toArray();
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)

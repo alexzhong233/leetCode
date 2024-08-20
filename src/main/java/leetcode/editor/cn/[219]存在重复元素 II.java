@@ -46,20 +46,21 @@ package leetcode.editor.cn;
 import leetcode.editor.cn.template.ListNode;
 import leetcode.editor.cn.template.TreeNode;
 
+import javax.crypto.MacSpi;
 import java.util.HashMap;
 
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public boolean containsNearbyDuplicate(int[] nums, int k) {
-        HashMap<Integer, Integer> map = new HashMap<>();
+        HashMap<Integer,Integer> dic = new HashMap<>();
         for (int i = 0; i < nums.length; i++) {
-            if (map.containsKey(nums[i])){
-                int index = map.get(nums[i]);
-                if (Math.abs(index-i)<=k){
+            int num = nums[i];
+            if (dic.containsKey(num)){
+                if (Math.abs(dic.get(num)-i)<=k){
                     return true;
                 }
             }
-            map.put(nums[i],i);
+             dic.put(num,i);
 
         }
         return false;

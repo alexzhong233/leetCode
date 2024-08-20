@@ -66,11 +66,11 @@ class Solution {
         int left = 0, right =0;
         int remove = 0;
         while (right<length){
-           if (nums[right]!=val){
-               nums[left]=nums[right];
-               remove++;
-               left++;
-           }
+            if (val!=nums[right]){
+                nums[left]=nums[right];
+                left++;
+                remove++;
+            }
             right++;
         }
         return remove;
