@@ -1,15 +1,11 @@
+import java.util.Arrays;
+
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public int canCompleteCircuit(int[] gas, int[] cost) {
 //查询是否能够承担全程
-        int countgas = 0;
-        int countcost = 0;
-        for (int i : gas) {
-            countgas += i;
-        }
-        for (int i : cost) {
-            countcost += i;
-        }
+        int countgas = Arrays.stream(gas).sum();
+        int countcost =Arrays.stream(cost).sum();
         if (countcost > countgas) {
             return -1;
         }

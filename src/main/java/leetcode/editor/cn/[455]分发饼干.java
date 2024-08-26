@@ -12,11 +12,9 @@ class Solution {
        while (sp<lengths&&gp<lengthg){
            if (s[sp]>=g[gp]){
                res++;
-               sp++;
                gp++;
-           }else{
-               sp++;
            }
+               sp++;
        }
 
         return res;

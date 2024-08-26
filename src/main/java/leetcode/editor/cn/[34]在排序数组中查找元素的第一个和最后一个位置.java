@@ -67,7 +67,7 @@ class Solution {
 //    找左边的 正好等于
         int left = 0, right = nums.length;
         while (left < right) {
-            int mid = (left + right) / 2;
+            int mid = (left + right) >>1;
             if (nums[mid] < target) {
                 left = mid + 1;
             } else {
@@ -84,7 +84,7 @@ class Solution {
 //     找右边的 第一个大于
         int left = 0, right = nums.length;
         while (left < right) {
-            int mid = (left + right) / 2;
+            int mid = (left + right) >>1;
             if (nums[mid] <= target) {
                 left = mid + 1;
             } else {

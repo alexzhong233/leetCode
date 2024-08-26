@@ -48,13 +48,29 @@
 
 
 package leetcode.editor.cn;
+
 import leetcode.editor.cn.template.ListNode;
 import leetcode.editor.cn.template.TreeNode;
 
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public double[] medianSlidingWindow(int[] nums, int k) {
+        int length = nums.length;
+        int dpLength = length - k + 1;
+        double[] dp = new double[dpLength];
+            int tmpSSum =0;
+        for (int i = 0; i < k; i++) {
+            tmpSSum+=nums[i];
+        }
+        dp[0]= (double) tmpSSum /k;
+        for (int i = 1; i < dp.length; i++) {
+            double num =dp[i-1]*k-nums[i-1]+nums[i+k-1];
+            System.out.println(num);
 
+//               nums[0]  nums[3]
+            dp[i]=num/k;
+        }
+return dp;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)

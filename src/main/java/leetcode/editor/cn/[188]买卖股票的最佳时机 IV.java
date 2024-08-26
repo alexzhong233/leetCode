@@ -2,9 +2,6 @@
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public int maxProfit(int k, int[] prices) {
-        if (prices == null || prices.length == 0) {
-            return 0;
-        }
         int length = prices.length;
 //                     第i天   交易了几次  有没有股票
         int[][][] dp = new int[length][k + 1][2];

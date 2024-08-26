@@ -49,13 +49,28 @@
 
 
 package leetcode.editor.cn;
+
 import leetcode.editor.cn.template.ListNode;
 import leetcode.editor.cn.template.TreeNode;
 
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public int maxSubArray(int[] nums) {
-
+        int len = nums.length;
+        int[] dp = new int[len];
+        dp[0] = nums[0];
+        for (int i = 1; i < len; i++) {
+            if (dp[i-1]>0){
+                dp[i]=nums[i]+dp[i-1];
+            }else{
+                dp[i]=nums[i];
+            }
+        }
+        int max = dp[0];
+        for (int i : dp) {
+            max=Math.max(i,max);
+        }
+        return max;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)

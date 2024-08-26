@@ -6,7 +6,7 @@ class Solution {
         if (x==1){return 1;}
         long left = 0, right = x,ans =-1;
         while (left < right) {
-            long mid = (left + right) / 2;
+            long mid = (left + right)>>1;
             long l = mid * mid;
             if (l <= x) {
                 ans =mid;
