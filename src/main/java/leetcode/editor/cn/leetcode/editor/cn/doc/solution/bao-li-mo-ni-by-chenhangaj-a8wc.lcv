@@ -1,0 +1,41 @@
+### 解题思路
+
+对于只会模拟的本菜鸡是真恶心的一题
+
+### 代码
+
+* java
+
+```java
+class Solution {
+    public String fractionToDecimal(int numerator, int denominator) {
+        StringBuilder ans = new StringBuilder();
+        boolean flag = true;
+        if((numerator < 0 && denominator > 0) || (numerator > 0 && denominator < 0)) flag = false;
+        long x = Math.abs((long)numerator);
+        long y = Math.abs((long)denominator);
+        long n = x/y;
+        long m = x%y;
+        if(flag) ans.append(n);
+        else ans.append('-').append(n);
+        if(m == 0) return ans.toString();
+        ans.append('.');
+        StringBuilder tmp = new StringBuilder();
+        Map<Long,Integer> map = new HashMap<>();
+        map.put(m,0);
+        while(m != 0){
+            m *= 10;
+            n = m/y;
+            m = m%y;
+            tmp.append(n);
+            if(map.containsKey(m)) break;
+            map.put(m,tmp.length());
+        }
+        if(m == 0) return ans.append(tmp).toString();
+        int k = map.get(m);
+        if(k == 0) return ans.append('(').append(tmp).append(')').toString();
+        return ans.append(tmp.substring(0,k)).append('(').append(tmp.substring(k)).append(')').toString();
+    }
+}
+```
+

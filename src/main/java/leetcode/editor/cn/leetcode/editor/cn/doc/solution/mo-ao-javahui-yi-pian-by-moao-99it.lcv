@@ -1,0 +1,44 @@
+### 纯模拟
+
+### 代码
+
+* java
+
+```java
+class Solution {
+    public String fractionToDecimal(int numerator, int denominator) {
+        long p=numerator,q=denominator;
+        if(p==0l)return "0";
+        String ans="";
+        if(p<0&&q<0){p*=-1;q*=-1;}
+        if(p<0||q<0)
+            {p=Math.abs(p);q=Math.abs(q);ans+="-";}
+        if(p%q==0)return ans+(p/q)+"";
+        ans+=(p/q)+".";
+        p%=q;
+        Queue<Pair<Long,Long>> queue=new LinkedList<Pair<Long,Long>>();
+        Set<Pair<Long,Long>> set=new HashSet<Pair<Long,Long>>();
+        Pair<Long,Long> end=new Pair<>(0l,0l);
+        boolean flag=true;
+        while(true){
+            long a0=p;
+            p*=10;
+            long a=p/q;
+            if(!set.contains(new Pair<>(a0,a))){set.add(new Pair<>(a0,a));}
+            else {end=new Pair<>(a0,a);break;}
+            if(p%q==0){queue.offer(new Pair<>(a0,a));flag=false;break;}
+            queue.offer(new Pair<>(a0,a));
+            p%=q;
+        }
+        while(!queue.isEmpty()){
+            String num="";
+            if(queue.element().equals(end)&&flag){num="("+queue.remove().getValue();}
+            else num=queue.remove().getValue()+"";
+            ans+=num;
+        }
+        if(flag)ans+=")";
+        return ans;
+    }
+}
+```
+
