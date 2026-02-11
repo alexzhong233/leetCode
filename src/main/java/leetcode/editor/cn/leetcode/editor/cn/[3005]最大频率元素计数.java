@@ -1,4 +1,4 @@
-package leetcode.editor.cn;//给你一个由 正整数 组成的数组 nums 。
+package leetcode.editor.cn.leetcode.editor.cn;//给你一个由 正整数 组成的数组 nums 。
 //
 // 返回数组 nums 中所有具有 最大 频率的元素的 总频率 。
 //

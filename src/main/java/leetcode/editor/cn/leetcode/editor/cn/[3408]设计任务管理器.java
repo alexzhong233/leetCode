@@ -1,4 +1,4 @@
-package leetcode.editor.cn;//一个任务管理器系统可以让用户管理他们的任务，每个任务有一个优先级。这个系统需要高效地处理添加、修改、执行和删除任务的操作。
+package leetcode.editor.cn.leetcode.editor.cn;//一个任务管理器系统可以让用户管理他们的任务，每个任务有一个优先级。这个系统需要高效地处理添加、修改、执行和删除任务的操作。
 //
 // 请你设计一个 TaskManager 类：
 //
