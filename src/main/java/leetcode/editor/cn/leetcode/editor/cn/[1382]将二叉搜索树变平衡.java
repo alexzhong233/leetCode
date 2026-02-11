@@ -38,7 +38,7 @@
 //leetcode submit region begin(Prohibit modification and deletion)
 
 
-import leetcode.editor.cn.utils.TreeNode;
+import leetcode.editor.cn.leetcode.editor.cn.utils.TreeNode;
 
 import java.util.ArrayList;
 import java.util.List;
