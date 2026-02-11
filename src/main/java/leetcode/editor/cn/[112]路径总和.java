@@ -45,24 +45,55 @@
 
 
 //leetcode submit region begin(Prohibit modification and deletion)
+
+//import leetcode.editor.cn.utils.TreeNode;
+
+import java.util.LinkedList;
+import java.util.Queue;
+
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
- *     int val;
- *     TreeNode left;
- *     TreeNode right;
- *     TreeNode() {}
- *     TreeNode(int val) { this.val = val; }
- *     TreeNode(int val, TreeNode left, TreeNode right) {
- *         this.val = val;
- *         this.left = left;
- *         this.right = right;
- *     }
+ * int val;
+ * TreeNode left;
+ * TreeNode right;
+ * TreeNode() {}
+ * TreeNode(int val) { this.val = val; }
+ * TreeNode(int val, TreeNode left, TreeNode right) {
+ * this.val = val;
+ * this.left = left;
+ * this.right = right;
+ * }
  * }
  */
 class Solution {
+
     public boolean hasPathSum(TreeNode root, int targetSum) {
-        
+        if (root==null){return false;}
+        Queue<TreeNode> queue = new LinkedList<>();
+        Queue<Integer> queVal = new LinkedList<Integer>();
+        queue.offer(root);
+        queVal.offer(root.val);
+        while (!queue.isEmpty()){
+            TreeNode node  = queue.poll();
+            int tmp = queVal.poll();
+            if (node.left==null&&node.right==null){
+                if (tmp==targetSum){
+                    return true;
+                }
+                continue;
+            }
+            if (node.left!=null){
+                queue.offer(node.left);
+                queVal.offer(node.left.val+tmp);
+            }
+            if (node.right!=null){
+                queue.offer(node.right);
+                queVal.offer(node.right.val+tmp);
+            }
+        }
+        return false;
     }
+
 }
 //leetcode submit region end(Prohibit modification and deletion)
