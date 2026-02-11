@@ -1,4 +1,4 @@
-//给你两个下标从 0 开始的字符串 source 和 target ，它们的长度均为 n 并且由 小写 英文字母组成。 
+package leetcode.editor.cn;//给你两个下标从 0 开始的字符串 source 和 target ，它们的长度均为 n 并且由 小写 英文字母组成。
 //
 // 另给你两个下标从 0 开始的字符数组 original 和 changed ，以及一个整数数组 cost ，其中 cost[i] 代表将字符 
 //original[i] 更改为字符 changed[i] 的成本。 
@@ -65,7 +65,6 @@
 // Related Topics 图 数组 字符串 最短路 👍 43 👎 0
 
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 
 //leetcode submit region begin(Prohibit modification and deletion)

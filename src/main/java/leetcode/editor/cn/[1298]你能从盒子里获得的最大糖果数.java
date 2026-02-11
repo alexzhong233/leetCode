@@ -1,4 +1,4 @@
-//给你 n 个盒子，每个盒子的格式为 [status, candies, keys, containedBoxes] ，其中： 
+package leetcode.editor.cn;//给你 n 个盒子，每个盒子的格式为 [status, candies, keys, containedBoxes] ，其中：
 //
 // 
 // 状态字 status[i]：整数，如果 box[i] 是开的，那么是 1 ，否则是 0 。 

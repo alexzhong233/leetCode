@@ -1,4 +1,4 @@
-//给你两个整数数组 prices 和 strategy，其中： 
+package leetcode.editor.cn;//给你两个整数数组 prices 和 strategy，其中：
 //
 // 
 // prices[i] 表示第 i 天某股票的价格。 

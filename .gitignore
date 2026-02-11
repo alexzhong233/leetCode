@@ -36,16 +36,7 @@ build/
 
 ### Mac OS ###
 .DS_Store
-/.idea/fastRequestCollection.xml
-/.idea/leetcode.xml
-/.idea/leetcode/editor.xml
-/.idea/fastRequest/fastRequestCollection.xml
-/.idea/fastRequest/fastRequestCurrentProjectLocalConfig.xml
-/.idea/leetcode/statistics.xml
-/.idea/misc.xml
-/.idea/vcs.xml
-/.idea/workspace.xml
-/src/main/java/leetcode/editor/cn/doc/
+/src/main/java/leetcode/editor/cn/doc/content
 .idea/
-.fastRequest/
+
 
