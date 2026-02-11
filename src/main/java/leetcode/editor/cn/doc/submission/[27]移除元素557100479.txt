@@ -1,0 +1,20 @@
+class Solution {
+    public int removeElement(int[] nums, int val) {
+//        和移除0一个思路
+        int length = nums.length;
+        int left = 0, right =0;
+        int remove = 0;
+        while (right<length){
+            if (val!=nums[right]){
+                nums[left]=nums[right];
+                left++;
+                remove++;
+            }
+            right++;
+        }
+        return remove;
+    }
+}
+
+//runtime:0 ms
+//memory:41 MB
